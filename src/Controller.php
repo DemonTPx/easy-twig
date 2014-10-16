@@ -4,6 +4,8 @@ namespace Demontpx\EasyTwig;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Twig_Environment;
+use Twig_Error_Loader;
 
 /**
  * Class Controller
@@ -13,13 +15,13 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class Controller
 {
-    /** @var \Twig_Environment */
+    /** @var Twig_Environment */
     private $twig;
 
     /**
-     * @param \Twig_Environment $twig
+     * @param Twig_Environment $twig
      */
-    public function __construct(\Twig_Environment $twig)
+    public function __construct(Twig_Environment $twig)
     {
         $this->twig = $twig;
     }
@@ -38,7 +40,7 @@ class Controller
 
         try {
             return new Response($this->twig->render('page/' . $path . '.html.twig'));
-        } catch (\Twig_Error_Loader $e) {
+        } catch (Twig_Error_Loader $e) {
             return new Response($this->twig->render('error/404.html.twig'), Response::HTTP_NOT_FOUND);
         }
     }

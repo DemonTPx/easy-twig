@@ -3,6 +3,7 @@
 namespace Demontpx\EasyTwig;
 
 use Twig_Environment;
+use Twig_Extension_Debug;
 use Twig_Loader_Filesystem;
 
 /**
@@ -14,20 +15,27 @@ use Twig_Loader_Filesystem;
 class TwigFactory
 {
     /**
-     * @param string $templatePath
-     * @param string $cachePath
+     * @param string      $templatePath
+     * @param bool|string $cachePath
+     * @param bool        $debug
      *
      * @return Twig_Environment
      */
-    public function create($templatePath, $cachePath = null)
+    public function create($templatePath, $cachePath = false, $debug = false)
     {
         $twigLoader = new Twig_Loader_Filesystem(array($templatePath));
 
-        $options = array();
-        if ($cachePath) {
-            $options['cache'] = $cachePath;
+        $options = array(
+            'debug' => $debug,
+            'cache' => $cachePath,
+        );
+
+        $twig = new Twig_Environment($twigLoader, $options);
+
+        if ($debug) {
+            $twig->addExtension(new Twig_Extension_Debug());
         }
 
-        return new Twig_Environment($twigLoader, $options);
+        return $twig;
     }
 }
