@@ -1,4 +1,3 @@
-
 DirectoryIndex app.php
 
 <IfModule mod_rewrite.c>
