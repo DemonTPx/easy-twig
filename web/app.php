@@ -9,7 +9,7 @@ require_once $root . 'config.php';
 require_once $root . 'vendor/autoload.php';
 
 $twigFactory = new TwigFactory();
-$twig = $twigFactory->create($templatesFolder, $cache ? $root . $cacheFolder : null);
+$twig = $twigFactory->create($templatesFolder, $cache ? $cacheFolder : null);
 
 $controller = new Controller($twig);
 

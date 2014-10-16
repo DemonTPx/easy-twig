@@ -1,5 +1,5 @@
 <?php
 
-$cache = true;
-$cacheFolder = 'cache';
-$templatesFolder = 'templates';
+$cache = false;
+$cacheFolder = __DIR__ . '/cache';
+$templatesFolder = __DIR__ . '/templates';
