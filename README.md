@@ -3,7 +3,7 @@ Easy Twig
 
 Easy twig is a very small and simple framework to get started with Twig quickly.
 
-Just start editing the `templates/page/index.html.twig` to start filling in your front page and `templates/base.html.twig` to modify the skeleton. To add a new page, for example a 'contact' page, just create the `templates/page/contact.html.twig` file and you're done! See [Pages][].
+Just start editing the `templates/page/index.html.twig` to start filling in your front page and `templates/base.html.twig` to modify the skeleton. To add a new page, for example a 'contact' page, just create the `templates/page/contact.html.twig` file and you're done! See [Pages]().
 
 If a page can not be found, the template `templates/error/404.html.twig` will be rendered.
 
