@@ -1,0 +1,19 @@
+{
+    "name": "demontpx/easy-twig",
+    "description": "Easy twig",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bert Hekman",
+            "email": "demontpx@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "twig/twig": "~1.16",
+        "symfony/http-foundation": "~2.5"
+    },
+    "autoload": {
+        "psr-4": { "Demontpx\\EasyTwig\\": "src/" }
+    }
+}
