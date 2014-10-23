@@ -16,6 +16,9 @@ use Twig_Error_Loader;
  */
 class ControllerTest extends \PHPUnit_Framework_TestCase
 {
+    /** @var Controller */
+    private $controller;
+
     /** @var \PHPUnit_Framework_MockObject_MockObject|Twig_Environment */
     private $twig;
 
@@ -24,8 +27,9 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->twig = $this->createMockTwig();
         $this->request = $this->createMockRequest();
+        $this->twig = $this->createMockTwig();
+        $this->controller = new Controller($this->twig);
     }
 
     /**
@@ -36,17 +40,21 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
      */
     public function testPage($path, $expectedPath)
     {
-        $controller = new Controller($this->twig);
-
         $this->request->expects($this->once())
             ->method('getPathInfo')
             ->will($this->returnValue($path));
 
+        $pageContent = 'This is the page content';
+
         $this->twig->expects($this->once())
             ->method('render')
-            ->with('page' . DIRECTORY_SEPARATOR . $expectedPath . '.html.twig');
+            ->with('page/' . $expectedPath)
+            ->will($this->returnValue($pageContent));
 
-        $this->assertInstanceOf(Response::class, $controller->page($this->request));
+        $result = $this->controller->page($this->request);
+
+        $this->assertInstanceOf(Response::class, $result);
+        $this->assertSame($pageContent, $result->getContent());
     }
 
     /**
@@ -55,32 +63,32 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
     public function pathDataProvider()
     {
         return array(
-            array('contact', 'contact'),
-            array('contact/', 'contact/index'),
+            array('/', 'index.html.twig'),
+            array('/contact', 'contact.html.twig'),
+            array('/contact/', 'contact/index.html.twig'),
+            array('/contact/about-us', 'contact/about-us.html.twig'),
         );
     }
 
     public function testPageException()
     {
-        $controller = new Controller($this->twig);
-
         $this->request->expects($this->once())
             ->method('getPathInfo')
-            ->will($this->returnValue('fail'));
+            ->will($this->returnValue('/fail'));
 
         $this->twig->expects($this->at(0))
             ->method('render')
-            ->with('page' . DIRECTORY_SEPARATOR . 'fail' . '.html.twig')
-            ->will($this->throwException(new Twig_Error_Loader('could not twig')));
+            ->with('page/fail.html.twig')
+            ->will($this->throwException(new Twig_Error_Loader('Unable to find template')));
 
         $this->twig->expects($this->at(1))
             ->method('render')
-            ->with('error' . DIRECTORY_SEPARATOR . '404.html.twig');
+            ->with('error/404.html.twig');
 
-        $errorResponse = $controller->page($this->request);
+        $result = $this->controller->page($this->request);
 
-        $this->assertInstanceOf(Response::class, $errorResponse);
-        $this->assertSame(404, $errorResponse->getStatusCode());
+        $this->assertInstanceOf(Response::class, $result);
+        $this->assertSame(404, $result->getStatusCode());
     }
 
     /**

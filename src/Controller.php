@@ -37,11 +37,12 @@ class Controller
         if (substr($path, -1) == '/') {
             $path .= 'index';
         }
+        $path = ltrim($path, '/');
 
         try {
-            return new Response($this->twig->render('page' . DIRECTORY_SEPARATOR . $path . '.html.twig'));
+            return new Response($this->twig->render('page/' . $path . '.html.twig'));
         } catch (Twig_Error_Loader $e) {
-            return new Response($this->twig->render('error' . DIRECTORY_SEPARATOR .'404.html.twig'), Response::HTTP_NOT_FOUND);
+            return new Response($this->twig->render('error/404.html.twig'), Response::HTTP_NOT_FOUND);
         }
     }
 }
