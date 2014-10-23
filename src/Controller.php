@@ -37,6 +37,7 @@ class Controller
         if (substr($path, -1) == '/') {
             $path .= 'index';
         }
+        $path = ltrim($path, '/');
 
         try {
             return new Response($this->twig->render('page/' . $path . '.html.twig'));
