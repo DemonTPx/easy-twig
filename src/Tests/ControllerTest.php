@@ -25,7 +25,7 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->twig = $this->createMockTwig();
-        $this->request = $this->createRequestMock();
+        $this->request = $this->createMockRequest();
     }
 
     /**
@@ -96,7 +96,7 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject|Request
      */
-    private function createRequestMock()
+    private function createMockRequest()
     {
         return $this->getMockBuilder(Request::class)
             ->disableArgumentCloning()
