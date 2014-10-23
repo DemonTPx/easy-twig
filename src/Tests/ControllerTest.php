@@ -75,7 +75,7 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->twig->expects($this->at(1))
             ->method('render')
-            ->with('error/404.html.twig');
+            ->with('error' . DIRECTORY_SEPARATOR . '404.html.twig');
 
         $errorResponse = $controller->page($this->request);
 
