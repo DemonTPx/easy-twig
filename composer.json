@@ -14,7 +14,6 @@
         "symfony/http-foundation": "~2.5"
     },
     "require-dev": {
-        "php": ">=5.3",
         "phpunit/phpunit": "~4.3"
     },
     "autoload": {
