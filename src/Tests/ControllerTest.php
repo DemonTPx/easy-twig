@@ -4,7 +4,6 @@ namespace Demontpx\EasyTwig\Tests;
 
 use Demontpx\EasyTwig\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Twig_Environment;
 use Twig_Error_Loader;
 
@@ -46,14 +45,18 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
 
         $pageContent = 'This is the page content';
 
+        $expectedContext = array(
+            'request' => $this->request,
+        );
+
         $this->twig->expects($this->once())
             ->method('render')
-            ->with('page/' . $expectedPath)
+            ->with('page/' . $expectedPath, $expectedContext)
             ->will($this->returnValue($pageContent));
 
         $result = $this->controller->page($this->request);
 
-        $this->assertInstanceOf(Response::class, $result);
+        $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $result);
         $this->assertSame($pageContent, $result->getContent());
     }
 
@@ -87,7 +90,7 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
 
         $result = $this->controller->page($this->request);
 
-        $this->assertInstanceOf(Response::class, $result);
+        $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $result);
         $this->assertSame(404, $result->getStatusCode());
     }
 
@@ -96,7 +99,7 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
      */
     private function createMockTwig()
     {
-        return $this->getMockBuilder(Twig_Environment::class)
+        return $this->getMockBuilder('Twig_Environment')
             ->disableOriginalConstructor()
             ->getMock();
     }
@@ -106,7 +109,7 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
      */
     private function createMockRequest()
     {
-        return $this->getMockBuilder(Request::class)
+        return $this->getMockBuilder('Symfony\Component\HttpFoundation\Request')
             ->disableArgumentCloning()
             ->getMock();
     }
