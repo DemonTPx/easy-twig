@@ -3,6 +3,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
+    <base href="{{ request.baseUrl }}">
 </head>
 <body>
 {% block content %}

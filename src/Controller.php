@@ -39,10 +39,14 @@ class Controller
         }
         $path = ltrim($path, '/');
 
+        $context = array(
+            'request' => $request,
+        );
+
         try {
-            return new Response($this->twig->render('page/' . $path . '.html.twig'));
+            return new Response($this->twig->render('page/' . $path . '.html.twig', $context));
         } catch (Twig_Error_Loader $e) {
-            return new Response($this->twig->render('error/404.html.twig'), Response::HTTP_NOT_FOUND);
+            return new Response($this->twig->render('error/404.html.twig', $context), Response::HTTP_NOT_FOUND);
         }
     }
 }
