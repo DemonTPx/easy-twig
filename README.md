@@ -1,6 +1,8 @@
 Easy Twig
 =========
 
+[![Build Status](https://travis-ci.org/DemonTPx/easy-twig.svg?branch=master)](https://travis-ci.org/DemonTPx/easy-twig)
+
 Easy twig is a very small and simple framework to get started with Twig quickly.
 
 Just start editing the `templates/page/index.html.twig` to start filling in your front page and `templates/base.html.twig` to modify the skeleton. To add a new page, for example a 'contact' page, just create the `templates/page/contact.html.twig` file and you're done! See [pages](#pages).
