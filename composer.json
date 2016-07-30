@@ -20,6 +20,9 @@
         "psr-4": { "Demontpx\\EasyTwig\\": "src/" }
     },
     "config": {
-        "bin-dir": "bin"
+        "bin-dir": "bin",
+        "platform": {
+            "php": "5.3.3"
+        }
     }
 }
