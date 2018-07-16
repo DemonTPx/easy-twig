@@ -1,26 +1,23 @@
 <?php
 
-namespace Demontpx\EasyTwig\Tests;
+namespace Tests\Demontpx\EasyTwig;
 
 use Demontpx\EasyTwig\Controller;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
-use Twig_Environment;
-use Twig_Error_Loader;
+use Symfony\Component\HttpFoundation\Response;
+use Twig\Environment;
+use Twig\Error\LoaderError;
 
 /**
- * Class ControllerTest
- *
- * @author    Wessel Strengholt <wessel.strengholt@gmail.com>
  * @copyright 2014 Bert Hekman
  */
-class ControllerTest extends \PHPUnit_Framework_TestCase
+class ControllerTest extends TestCase
 {
     /** @var Controller */
     private $controller;
-
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Twig_Environment */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Environment */
     private $twig;
-
     /** @var \PHPUnit_Framework_MockObject_MockObject|Request */
     private $request;
 
@@ -32,12 +29,9 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param string $path
-     * @param string $expectedPath
-     *
      * @dataProvider pathDataProvider
      */
-    public function testPage($path, $expectedPath)
+    public function testPage(string $path, string $expectedPath)
     {
         $this->request->expects($this->once())
             ->method('getPathInfo')
@@ -45,9 +39,9 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
 
         $pageContent = 'This is the page content';
 
-        $expectedContext = array(
+        $expectedContext = [
             'request' => $this->request,
-        );
+        ];
 
         $this->twig->expects($this->once())
             ->method('render')
@@ -56,21 +50,18 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
 
         $result = $this->controller->page($this->request);
 
-        $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $result);
+        $this->assertInstanceOf(Response::class, $result);
         $this->assertSame($pageContent, $result->getContent());
     }
 
-    /**
-     * @return array
-     */
     public function pathDataProvider()
     {
-        return array(
-            array('/', 'index.html.twig'),
-            array('/contact', 'contact.html.twig'),
-            array('/contact/', 'contact/index.html.twig'),
-            array('/contact/about-us', 'contact/about-us.html.twig'),
-        );
+        return [
+            ['/', 'index.html.twig'],
+            ['/contact', 'contact.html.twig'],
+            ['/contact/', 'contact/index.html.twig'],
+            ['/contact/about-us', 'contact/about-us.html.twig'],
+        ];
     }
 
     public function testPageException()
@@ -82,7 +73,7 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
         $this->twig->expects($this->at(0))
             ->method('render')
             ->with('page/fail.html.twig')
-            ->will($this->throwException(new Twig_Error_Loader('Unable to find template')));
+            ->will($this->throwException(new LoaderError('Unable to find template')));
 
         $this->twig->expects($this->at(1))
             ->method('render')
@@ -95,11 +86,11 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|Twig_Environment
+     * @return \PHPUnit_Framework_MockObject_MockObject|Environment
      */
     private function createMockTwig()
     {
-        return $this->getMockBuilder('Twig_Environment')
+        return $this->getMockBuilder(Environment::class)
             ->disableOriginalConstructor()
             ->getMock();
     }
@@ -109,8 +100,8 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
      */
     private function createMockRequest()
     {
-        return $this->getMockBuilder('Symfony\Component\HttpFoundation\Request')
-            ->disableArgumentCloning()
+        return $this->getMockBuilder(Request::class)
+            ->disableOriginalConstructor()
             ->getMock();
     }
 }

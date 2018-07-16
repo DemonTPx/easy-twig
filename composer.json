@@ -8,21 +8,24 @@
             "email": "demontpx@gmail.com"
         }
     ],
-    "require": {
-        "php": ">=5.3.3",
-        "twig/twig": "~1.16",
-        "symfony/http-foundation": "~2.5"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "~4.3"
-    },
     "autoload": {
         "psr-4": { "Demontpx\\EasyTwig\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Tests\\Demontpx\\EasyTwig\\": "tests/" }
+    },
+    "require": {
+        "php": "^7.1",
+        "twig/twig": "^2.5",
+        "symfony/http-foundation": "^4.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
     },
     "config": {
         "bin-dir": "bin",
         "platform": {
-            "php": "5.3.3"
+            "php": "7.1.3"
         }
     }
 }

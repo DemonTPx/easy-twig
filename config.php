@@ -13,7 +13,7 @@ $debug = false;
  * Cache path
  *
  * Set this to a path which is writable by the web server user (www_data, _www, etc...)
- * Set to false to disable it
+ * Set to null to disable it
  */
 $cachePath = __DIR__ . '/cache';
 
