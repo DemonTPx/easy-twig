@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Demontpx\EasyTwig;
 
@@ -23,7 +23,7 @@ class Controller
     public function page(Request $request): Response
     {
         $path = $request->getPathInfo();
-        if (substr($path, -1) == '/') {
+        if (substr($path, -1) === '/') {
             $path .= 'index';
         }
         $path = ltrim($path, '/');

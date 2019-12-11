@@ -38,7 +38,7 @@ Note that removing the last slash will try to access `contact-us.html.twig`
 Configuration
 -------------
 
-Check out the `config.php` file for configuration settings.
+Check out the `.env` file for configuration settings.
 
 Setting up apache2
 ------------------
@@ -50,8 +50,8 @@ Set the document root to the `web/` folder. You also might want set `AllowOverri
     ServerName domain.tld
     ServerAlias www.domain.tld
 
-    DocumentRoot /var/www/website/web
-    <Directory /var/www/website/web>
+    DocumentRoot /var/www/website/public
+    <Directory /var/www/website/public>
         AllowOverride All
     </Directory>
 </VirtualHost>
@@ -65,19 +65,21 @@ Configuration might look a bit like this:
 ```Nginx
 server {
     server_name domain.tld www.domain.tld;
-    root /var/www/website/web;
+    root /var/www/website/public;
 
     location / {
-        try_files $uri /app.php$is_args$args;
+        try_files $uri /index.php$is_args$args;
     }
 
-    location ~ ^/app\.php(/|$) {
-        fastcgi_pass unix:/var/run/php5-fpm.sock;
+    location ~ ^/index\.php(/|$) {
+        fastcgi_pass unix:/var/run/php-fpm.sock;
         fastcgi_split_path_info ^(.+\.php)(/.*)$;
         include fastcgi_params;
+
         fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
         fastcgi_param DOCUMENT_ROOT $realpath_root;
-        fastcgi_param HTTPS off;
+
+        internal;
     }
 }
 ```

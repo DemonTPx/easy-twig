@@ -3,6 +3,7 @@
 namespace Tests\Demontpx\EasyTwig;
 
 use Demontpx\EasyTwig\Controller;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,12 +17,12 @@ class ControllerTest extends TestCase
 {
     /** @var Controller */
     private $controller;
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Environment */
+    /** @var MockObject|Environment */
     private $twig;
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Request */
+    /** @var MockObject|Request */
     private $request;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->request = $this->createMockRequest();
         $this->twig = $this->createMockTwig();
@@ -86,7 +87,7 @@ class ControllerTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|Environment
+     * @return MockObject|Environment
      */
     private function createMockTwig()
     {
@@ -96,7 +97,7 @@ class ControllerTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|Request
+     * @return MockObject|Request
      */
     private function createMockRequest()
     {
