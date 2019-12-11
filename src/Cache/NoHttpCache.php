@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @copyright 2019 PB Web Media B.V.
+ * @copyright 2019 Bert Hekman
  */
 class NoHttpCache implements HttpCacheInterface
 {

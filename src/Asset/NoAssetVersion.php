@@ -3,7 +3,7 @@
 namespace Demontpx\EasyTwig\Asset;
 
 /**
- * @copyright 2019 PB Web Media B.V.
+ * @copyright 2019 Bert Hekman
  */
 class NoAssetVersion implements AssetVersionInterface
 {

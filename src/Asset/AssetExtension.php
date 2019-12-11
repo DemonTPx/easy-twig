@@ -6,7 +6,7 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 /**
- * @copyright 2019 PB Web Media B.V.
+ * @copyright 2019 Bert Hekman
  */
 class AssetExtension extends AbstractExtension
 {
