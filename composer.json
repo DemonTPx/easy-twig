@@ -15,7 +15,7 @@
         "psr-4": { "Tests\\Demontpx\\EasyTwig\\": "tests/" }
     },
     "require": {
-        "php": "^7.2",
+        "php": ">=7.2",
         "ext-json": "*",
         "twig/twig": "^3.0",
         "symfony/http-foundation": "^5.0",
@@ -25,9 +25,6 @@
         "phpunit/phpunit": "^8.4"
     },
     "config": {
-        "bin-dir": "bin",
-        "platform": {
-            "php": "7.2.9"
-        }
+        "bin-dir": "bin"
     }
 }
